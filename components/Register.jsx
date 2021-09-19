@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import OtpInput from "react-otp-input";
+import Link from "next/link";
 
 export default function Register() {
   const [signUp, setSignUp] = useState();
@@ -104,9 +105,14 @@ export default function Register() {
         }
       `}</style>
       {errorWhileUpdate ? (
-        <>
-          <div>Error text</div>
-        </>
+        <div className="wrapper w-full h-screen flex justify-center items-center">
+          <div className="update__error text-gray-50">
+            Update store is not succeed, please{" "}
+            <Link href={`/`}>
+              <a className="underline text-red-400">try again</a>
+            </Link>
+          </div>
+        </div>
       ) : (
         <div className="wrapper w-full h-screen flex justify-center items-center">
           <div className="otp min-w-[350px]">
@@ -119,6 +125,8 @@ export default function Register() {
                 <>
                   <OtpInput
                     value={otp}
+                    shouldAutoFocus={true}
+                    isInputNum={true}
                     inputStyle={{
                       border: "1px solid transparent",
                       borderRadius: "8px",
@@ -139,12 +147,16 @@ export default function Register() {
                     numInputs={4}
                     separator={<span>-</span>}
                   />
-                  <div className="submit text-center w-full">
+                  <div
+                    className={`w-full submit text-center w-full ${
+                      loading ? "cursor-not-allowed" : ""
+                    }`}
+                  >
                     <button
                       type="submit"
-                      className={`bg-gray-500 py-2 px-5 text-gray-200 rounded mt-5 hover:shadow-lg transition w-full ${
+                      className={`w-full bg-gray-500 py-2 px-5 text-gray-200 rounded mt-5 hover:shadow-lg transition w-full ${
                         loading ? "pointer-events-none" : ""
-                      } ${loading ? "cursor-not-allowed" : ""}`}
+                      }`}
                     >
                       {loading ? "Loading .." : "Submit"}
                     </button>
@@ -177,14 +189,18 @@ export default function Register() {
                       Please enter a valid phone number
                     </p>
                   )}
-                  <button
-                    type="submit"
-                    className={`bg-gray-500 py-2 px-5 text-gray-200 rounded mt-5 hover:shadow-lg transition ${
-                      loading ? "pointer-events-none" : ""
-                    } ${loading ? "cursor-not-allowed" : ""}`}
+                  <div
+                    className={`w-full ${loading ? "cursor-not-allowed" : ""}`}
                   >
-                    {loading ? "Loading .." : "Next"}
-                  </button>
+                    <button
+                      type="submit"
+                      className={`w-full bg-gray-500 py-2 px-5 text-gray-200 rounded mt-5 hover:shadow-lg transition ${
+                        loading ? "pointer-events-none" : ""
+                      }`}
+                    >
+                      {loading ? "Loading .." : "Next"}
+                    </button>
+                  </div>
                 </>
               )}
 
@@ -288,12 +304,14 @@ export default function Register() {
                       </p>
                     )}
                   </div>
-
+                  <div
+                    className={`w-full ${loading ? "cursor-not-allowed" : ""}`}
+                  ></div>
                   <button
                     type="submit"
-                    className={`bg-gray-500 py-2 px-5 text-gray-200 rounded mt-5 hover:shadow-lg transition ${
+                    className={`w-full bg-gray-500 py-2 px-5 text-gray-200 rounded mt-5 hover:shadow-lg transition ${
                       loading ? "pointer-events-none" : ""
-                    } ${loading ? "cursor-not-allowed" : ""}`}
+                    }`}
                   >
                     {loading ? "Loading .." : "Next"}
                   </button>
