@@ -70,6 +70,10 @@ export default function Register() {
         `,
       });
 
+      if (!data.confirm) {
+        console.log("Confirm status is null");
+      }
+
       setSwitches({
         signUp: false,
         confirm: false,
